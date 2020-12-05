@@ -17,6 +17,8 @@ namespace AdessoRideShare.Domain.Entities
         public string Password { get; set; }
         public Role Role { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public DateTime CreatedTime { get; set; }
         public DateTime UpdatedTime { get; set; }
     }

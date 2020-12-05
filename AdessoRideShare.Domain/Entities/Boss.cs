@@ -5,8 +5,8 @@ using System.Text;
 
 namespace AdessoRideShare.Domain.Entities
 {
-    [Table("Adventurers")]
-    public class Adventurer : User
+    [Table("Bosses")]
+    public class Boss : User
     {
         public string MSISDN { get; set; }
 

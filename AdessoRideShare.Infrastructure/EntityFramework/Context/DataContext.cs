@@ -18,6 +18,10 @@ namespace AdessoRideShare.Infrastructure.EntityFramework.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Journey>()
+            .HasOne(c => c.Boss)
+            .WithMany(a=>a.Journeys)
+            .OnDelete(DeleteBehavior.Restrict);
 
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

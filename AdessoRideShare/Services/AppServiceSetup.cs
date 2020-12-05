@@ -10,10 +10,6 @@ namespace AdessoRideShare.Panel.Services
     {
         public static void Setup(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<DataContext>(cfg =>
-            {
-                cfg.UseSqlServer();
-            });
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("AdessoRideShare")));
 
