@@ -1,3 +1,4 @@
+using AdessoRideShare.Panel.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,10 +28,20 @@ namespace AdessoRideShare
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            AppServiceSetup.Setup(services, Configuration);
+            services.AddControllers().AddNewtonsoftJson();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AdessoRideShare", Version = "v1" });
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("myLocal",
+                    policy => policy.AllowAnyOrigin()
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader());
             });
         }
 

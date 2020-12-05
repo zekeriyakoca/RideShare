@@ -9,16 +9,16 @@ namespace AdessoRideShare.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class JourneyController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<JourneyController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public JourneyController(ILogger<JourneyController> logger)
         {
             _logger = logger;
         }
