@@ -33,6 +33,11 @@ namespace AdessoRideShare.Infrastructure.Repositories
             return  context.Journeys.Include(j=>j.Bookings).FirstOrDefault(j=>j.Id == id);
         }
 
+        public override IEnumerable<Journey> GetAllLazy()
+        {
+            return Context.Set<Journey>().Include(j=>j.Destination).Include(j => j.Origin).AsQueryable().AsNoTracking();
+        }
+
 
 
     }

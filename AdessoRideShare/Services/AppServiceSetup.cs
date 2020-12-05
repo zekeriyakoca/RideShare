@@ -25,6 +25,7 @@ namespace AdessoRideShare.Panel.Services
             services.AddTransient<Seeder>();
             services.AddTransient<IJourneyRepository, JourneyRepository>();
             services.AddTransient<IBookingRepository, BookingRepository>();
+            services.AddTransient<ILocationRepository, LocationRepository>();
 
 
 

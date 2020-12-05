@@ -45,8 +45,8 @@ namespace AdessoRideShare.Infrastructure.EntityFramework.Seed
 
             context.Locations.AddRange(new List<Location> {
 
-            new Location{  Name = "testOrigin"},
-               new Location{  Name = "testDestination"}
+               new Location{  Name = "testOrigin" , CoorditateX  = 10, CoorditateY = 5},
+               new Location{  Name = "testDestination", CoorditateX = 1, CoorditateY = 2}
             });
 
             await context.SaveChangesAsync();

@@ -12,5 +12,8 @@ namespace AdessoRideShare.Domain.Entities
 
         [Required]
         public string Name { get; set; }
+
+        public int CoorditateX { get; set; }
+        public int CoorditateY { get; set; }
     }
 }

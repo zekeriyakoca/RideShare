@@ -29,7 +29,7 @@ namespace AdessoRideShare.Infrastructure
             return await Context.Set<TEntity>().AsNoTracking().ToListAsync();
         }
 
-        public IEnumerable<TEntity> GetAllLazy()
+        public virtual IEnumerable<TEntity> GetAllLazy()
         {
             return Context.Set<TEntity>().AsQueryable().AsNoTracking();
         }
