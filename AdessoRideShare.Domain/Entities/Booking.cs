@@ -1,5 +1,6 @@
 ﻿using AdessoRideShare.Dtos.Enums;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,6 +25,9 @@ namespace AdessoRideShare.Domain.Entities
         [ForeignKey(nameof(Adventurer))]
         public int AdventurerId { get; set; }
         public Adventurer Adventurer { get; set; }
+
+        public virtual IEnumerable<Amigo> Amigos { get; set; }
+
 
     }
 }

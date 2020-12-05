@@ -10,6 +10,7 @@ namespace AdessoRideShare.Domain.Interface
     {
         Task<TEntity> Get(int id);
         Task<IEnumerable<TEntity>> GetAll();
+        IEnumerable<TEntity> GetAllLazy();
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
         Task<TEntity> SingleOrDefault(Expression<Func<TEntity, bool>> predicate);

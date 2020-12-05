@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace AdessoRideShare.Domain.Entities
 {
@@ -14,7 +15,6 @@ namespace AdessoRideShare.Domain.Entities
 
         [Required]
         public int SeatCapacity { get; set; }
-        public int SeatsAllocated { get; set; }
 
         [Required]
         public DateTime JourneyDate { get; set; }
@@ -36,7 +36,26 @@ namespace AdessoRideShare.Domain.Entities
         public int OwnerId { get; set; }
         public virtual Boss Boss { get; set; }
 
-        public virtual IEnumerable<Adventurer> Adventurers { get; set; }
+
+        public virtual IEnumerable<Booking> Bookings { get; set; } = new List<Booking> { };
+
+        [NotMapped]
+        public int SeatsOccupied
+        {
+            get
+            {
+                return this.Bookings.Select(b => b.Amigos == null ? 1 : b.Amigos.Count() + 1).Sum();
+            }
+        }
+
+        [NotMapped]
+        public bool isEligableToJoin
+        {
+            get
+            {
+                return this.SeatCapacity - this.SeatsOccupied > 0;
+            }
+        }
 
     }
 }

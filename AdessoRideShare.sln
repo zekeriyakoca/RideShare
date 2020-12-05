@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30615.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdessoRideShare", "AdessoRideShare\AdessoRideShare.csproj", "{BE907D53-EA57-417C-9030-46161ABFE7AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdessoRideShare", "AdessoRideShare\AdessoRideShare.csproj", "{BE907D53-EA57-417C-9030-46161ABFE7AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdessoRideShare.Infrastructure", "AdessoRideShare.Infrastructure\AdessoRideShare.Infrastructure.csproj", "{11BA4CBD-E497-4190-819C-8CE7CD9A3B0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdessoRideShare.Infrastructure", "AdessoRideShare.Infrastructure\AdessoRideShare.Infrastructure.csproj", "{11BA4CBD-E497-4190-819C-8CE7CD9A3B0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdessoRideShare.Domain", "AdessoRideShare.Domain\AdessoRideShare.Domain.csproj", "{8E39D521-7C95-4889-8DFB-8B0988C5D707}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdessoRideShare.Domain", "AdessoRideShare.Domain\AdessoRideShare.Domain.csproj", "{8E39D521-7C95-4889-8DFB-8B0988C5D707}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdessoRideShare.Dtos", "AdessoRideShare.Dtos\AdessoRideShare.Dtos.csproj", "{3A7DF815-5AA1-4AA4-BBC0-A9E24BB781AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdessoRideShare.Dtos", "AdessoRideShare.Dtos\AdessoRideShare.Dtos.csproj", "{3A7DF815-5AA1-4AA4-BBC0-A9E24BB781AB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{DC5C4321-0467-41B6-A4CF-9B213A941CA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdessoRideShare.Utils", "AdessoRideShare.Utils\AdessoRideShare.Utils.csproj", "{4D20F7F4-BA75-44E6-83AD-CDFD4FD60234}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdessoRideShare.Utils", "AdessoRideShare.Utils\AdessoRideShare.Utils.csproj", "{4D20F7F4-BA75-44E6-83AD-CDFD4FD60234}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cache", "AdessoRideShare.Cache\Cache.csproj", "{9E14C5DA-1E2F-4DE0-9A2E-FE7DEFC84D4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{4D20F7F4-BA75-44E6-83AD-CDFD4FD60234}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D20F7F4-BA75-44E6-83AD-CDFD4FD60234}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D20F7F4-BA75-44E6-83AD-CDFD4FD60234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E14C5DA-1E2F-4DE0-9A2E-FE7DEFC84D4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E14C5DA-1E2F-4DE0-9A2E-FE7DEFC84D4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E14C5DA-1E2F-4DE0-9A2E-FE7DEFC84D4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E14C5DA-1E2F-4DE0-9A2E-FE7DEFC84D4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3A7DF815-5AA1-4AA4-BBC0-A9E24BB781AB} = {DC5C4321-0467-41B6-A4CF-9B213A941CA7}
 		{4D20F7F4-BA75-44E6-83AD-CDFD4FD60234} = {DC5C4321-0467-41B6-A4CF-9B213A941CA7}
+		{9E14C5DA-1E2F-4DE0-9A2E-FE7DEFC84D4F} = {DC5C4321-0467-41B6-A4CF-9B213A941CA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B1C15B42-5562-4EBE-8E81-3ACD3615AF0A}

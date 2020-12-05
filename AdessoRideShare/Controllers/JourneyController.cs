@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AdessoRideShare.Domain.Entities;
+using AdessoRideShare.Domain.Interface;
+using AdessoRideShare.Domain.Interfaces;
+using AdessoRideShare.Dtos;
+using AdessoRideShare.Infrastructure.Mappers;
+using AdessoRideShare.Utils.Infrastructure;
+using Cache.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -9,31 +16,88 @@ namespace AdessoRideShare.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class JourneyController : ControllerBase
+    public class JourneyController : BaseController
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
 
-        private readonly ILogger<JourneyController> _logger;
+        private readonly ILogger<JourneyController> logger;
+        private readonly IBookingRepository bookingRepository;
+        private readonly IJourneyRepository journeyRepository;
+        public IUnitOfWork unitOfWork { get; }
 
-        public JourneyController(ILogger<JourneyController> logger)
+        public JourneyController(ILogger<JourneyController> logger,
+            ICacheService cacheService,
+            IJourneyRepository journeyRepository,
+            IBookingRepository bookingRepository,
+            IUnitOfWork unitOfWork
+            ) : base(cacheService)
         {
-            _logger = logger;
+            this.logger = logger;
+            this.journeyRepository = journeyRepository;
+            this.bookingRepository = bookingRepository;
+            this.unitOfWork = unitOfWork;
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpPost]
+        [Route("")]
+        public async Task<ActionResult> CreateNewJourney([FromBody] JourneyUpsertDto dto)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            if (!ModelState.IsValid)
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                return BadRequest();
+            }
+            this.journeyRepository.Add(dto.ToJourney(CurrentUser));
+            await this.unitOfWork.Complete();
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("{journeyId}/updateStatus")]
+        public async Task<ActionResult> UpdateJourneyStatus(int journeyId, [FromBody] bool isActive)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            await this.journeyRepository.SetStatus(journeyId, isActive);
+            await this.unitOfWork.Complete();
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        [Route("search")]
+        public ActionResult<List<JourneyDto>> SearchJourney([FromBody]JourneySearchDto dto)
+        {
+            var journeys = journeyRepository.GetAllLazy();
+            if (dto.OriginId != null) {
+                journeys = journeys.Where(j => j.OriginId == dto.OriginId);
+            }
+            if (dto.DestinationId != null) {
+                journeys = journeys.Where(j => j.DestinationId == dto.DestinationId.Value);
+            }
+            return Ok(journeys.ToList());
+        }
+
+        [HttpPost]
+        [Route("{id}/join")]
+        public async Task<ActionResult<List<JourneyDto>>> JoinToJourney([FromRoute] int id, [FromBody] List<AmigoDto> amigos)
+        {
+            var journey = await journeyRepository.GetWithBookings(id);
+
+
+            if (!journey.isEligableToJoin)
+            {
+                return BadRequest("Journey is already full");
+            }
+            //TODO : Move these domain related staff to repository
+            var booking = new Booking { AdventurerId = 2, JourneyId = id, CreatedTime = DateTime.Now, Status = Dtos.Enums.BookingStatus.Cretaed }; // TODO : Replace with CurrentUser after the authentication system implemented
+            booking.Amigos = amigos.ToAmigoList();
+            
+            bookingRepository.Add(booking);
+            await unitOfWork.Complete();
+            return Ok();
         }
     }
 }

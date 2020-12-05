@@ -2,6 +2,6 @@
 {
     public enum Role
     {
-        Admin = 1, Operator, Customer = 2
+        Admin = 1, Operator, Adventurer = 2, Owner =3,
     }
 }

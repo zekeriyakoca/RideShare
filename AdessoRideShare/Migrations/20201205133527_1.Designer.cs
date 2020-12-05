@@ -4,14 +4,16 @@ using AdessoRideShare.Infrastructure.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AdessoRideShare.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201205133527_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,9 +82,6 @@ namespace AdessoRideShare.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("AdventurerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -104,12 +103,13 @@ namespace AdessoRideShare.Migrations
                     b.Property<int>("SeatCapacity")
                         .HasColumnType("int");
 
+                    b.Property<int>("SeatsAllocated")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AdventurerId");
 
                     b.HasIndex("DestinationId");
 
@@ -171,6 +171,21 @@ namespace AdessoRideShare.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("AdventurerJourney", b =>
+                {
+                    b.Property<int>("AdventurersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JourneysId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AdventurersId", "JourneysId");
+
+                    b.HasIndex("JourneysId");
+
+                    b.ToTable("AdventurerJourney");
+                });
+
             modelBuilder.Entity("AdessoRideShare.Domain.Entities.Adventurer", b =>
                 {
                     b.HasBaseType("AdessoRideShare.Domain.Entities.User");
@@ -211,7 +226,7 @@ namespace AdessoRideShare.Migrations
                         .IsRequired();
 
                     b.HasOne("AdessoRideShare.Domain.Entities.Journey", "Journey")
-                        .WithMany("Bookings")
+                        .WithMany()
                         .HasForeignKey("JourneyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -223,10 +238,6 @@ namespace AdessoRideShare.Migrations
 
             modelBuilder.Entity("AdessoRideShare.Domain.Entities.Journey", b =>
                 {
-                    b.HasOne("AdessoRideShare.Domain.Entities.Adventurer", null)
-                        .WithMany("Journeys")
-                        .HasForeignKey("AdventurerId");
-
                     b.HasOne("AdessoRideShare.Domain.Entities.Location", "Destination")
                         .WithMany()
                         .HasForeignKey("DestinationId");
@@ -246,6 +257,21 @@ namespace AdessoRideShare.Migrations
                     b.Navigation("Destination");
 
                     b.Navigation("Origin");
+                });
+
+            modelBuilder.Entity("AdventurerJourney", b =>
+                {
+                    b.HasOne("AdessoRideShare.Domain.Entities.Adventurer", null)
+                        .WithMany()
+                        .HasForeignKey("AdventurersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AdessoRideShare.Domain.Entities.Journey", null)
+                        .WithMany()
+                        .HasForeignKey("JourneysId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AdessoRideShare.Domain.Entities.Adventurer", b =>
@@ -269,16 +295,6 @@ namespace AdessoRideShare.Migrations
             modelBuilder.Entity("AdessoRideShare.Domain.Entities.Booking", b =>
                 {
                     b.Navigation("Amigos");
-                });
-
-            modelBuilder.Entity("AdessoRideShare.Domain.Entities.Journey", b =>
-                {
-                    b.Navigation("Bookings");
-                });
-
-            modelBuilder.Entity("AdessoRideShare.Domain.Entities.Adventurer", b =>
-                {
-                    b.Navigation("Journeys");
                 });
 
             modelBuilder.Entity("AdessoRideShare.Domain.Entities.Boss", b =>

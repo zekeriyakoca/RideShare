@@ -8,7 +8,7 @@ using AdessoRideShare.Domain.Interface;
 using AdessoRideShare.Infrastructure.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace AdessoRideShare.Infrastructure.Repository
+namespace AdessoRideShare.Infrastructure
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
@@ -26,7 +26,12 @@ namespace AdessoRideShare.Infrastructure.Repository
 
         public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return await Context.Set<TEntity>().ToListAsync();
+            return await Context.Set<TEntity>().AsNoTracking().ToListAsync();
+        }
+
+        public IEnumerable<TEntity> GetAllLazy()
+        {
+            return Context.Set<TEntity>().AsQueryable().AsNoTracking();
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)

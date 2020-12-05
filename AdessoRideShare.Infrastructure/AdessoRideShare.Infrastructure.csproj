@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Configurations\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdessoRideShare.Cache\Cache.csproj" />
     <ProjectReference Include="..\AdessoRideShare.Domain\AdessoRideShare.Domain.csproj" />
     <ProjectReference Include="..\AdessoRideShare.Dtos\AdessoRideShare.Dtos.csproj" />
     <ProjectReference Include="..\AdessoRideShare.Utils\AdessoRideShare.Utils.csproj" />

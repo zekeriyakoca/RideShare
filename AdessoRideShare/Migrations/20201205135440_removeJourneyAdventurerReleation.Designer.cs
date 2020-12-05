@@ -4,14 +4,16 @@ using AdessoRideShare.Infrastructure.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AdessoRideShare.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201205135440_removeJourneyAdventurerReleation")]
+    partial class removeJourneyAdventurerReleation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,6 +104,9 @@ namespace AdessoRideShare.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SeatCapacity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatsAllocated")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -211,7 +216,7 @@ namespace AdessoRideShare.Migrations
                         .IsRequired();
 
                     b.HasOne("AdessoRideShare.Domain.Entities.Journey", "Journey")
-                        .WithMany("Bookings")
+                        .WithMany()
                         .HasForeignKey("JourneyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -269,11 +274,6 @@ namespace AdessoRideShare.Migrations
             modelBuilder.Entity("AdessoRideShare.Domain.Entities.Booking", b =>
                 {
                     b.Navigation("Amigos");
-                });
-
-            modelBuilder.Entity("AdessoRideShare.Domain.Entities.Journey", b =>
-                {
-                    b.Navigation("Bookings");
                 });
 
             modelBuilder.Entity("AdessoRideShare.Domain.Entities.Adventurer", b =>

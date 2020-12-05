@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AdessoRideShare.Infrastructure.EntityFramework.Seed;
+using AdessoRideShare.Infrastructure;
 
 namespace AdessoRideShare
 {
@@ -35,6 +36,12 @@ namespace AdessoRideShare
                 if (seeder != null)
                 {
                     seeder.SeedAsync().Wait();
+                }
+
+                var applicationDefaultsSeeder = scope.ServiceProvider.GetService<ApplicationDefaultsSeeder>();
+                if (applicationDefaultsSeeder != null)
+                {
+                    applicationDefaultsSeeder.SetDefaults().Wait();
                 }
 
             }

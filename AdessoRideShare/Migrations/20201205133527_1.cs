@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AdessoRideShare.Migrations
 {
-    public partial class _2 : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -167,10 +167,36 @@ namespace AdessoRideShare.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Amigos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BookingId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Amigos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Amigos_Bookings_BookingId",
+                        column: x => x.BookingId,
+                        principalTable: "Bookings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AdventurerJourney_JourneysId",
                 table: "AdventurerJourney",
                 column: "JourneysId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Amigos_BookingId",
+                table: "Amigos",
+                column: "BookingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_AdventurerId",
@@ -202,6 +228,9 @@ namespace AdessoRideShare.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AdventurerJourney");
+
+            migrationBuilder.DropTable(
+                name: "Amigos");
 
             migrationBuilder.DropTable(
                 name: "Bookings");

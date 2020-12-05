@@ -10,7 +10,7 @@ namespace AdessoRideShare.Infrastructure.EntityFramework.Context
         }
         public DbSet<Journey> Journeys { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        //public DbSet<Adventurer> Customer { get; set; }
+        public DbSet<Amigo> Amigos { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Location> Locations { get; set; }
 
